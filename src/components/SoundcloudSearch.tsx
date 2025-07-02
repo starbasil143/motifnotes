@@ -1,8 +1,8 @@
 "use client"
 
-import { searchForTrack } from '@/lib/actions';
-import Form from 'next/form';
+import { Button, Form, Input } from '@heroui/react'
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
+import {Card, CardHeader, CardBody, CardFooter} from "@heroui/card";
 import { SoundcloudPlaylist } from 'soundcloud.ts';
 
 
@@ -15,7 +15,6 @@ export default function SoundcloudSearch({
   const [queryInput, setQueryInput] = useState<string>('');
   const [query, setQuery] = useState<string>('');
 
-  const [results, setResults] = useState<any>(null);
 
   
 
@@ -44,20 +43,25 @@ export default function SoundcloudSearch({
 
 
   return (
-    <div>
-      <form onSubmit={handleTrackSearch}>
-        <input 
-          type="text"
+    <Card className='m-4 p-6 w-full max-w-xs'>
+      <Form onSubmit={handleTrackSearch} className='flex'>
+        <Input
+          className='w-full max-w-xs'
+          isClearable
+          type='text'
+          label='Search for a playlist'
+          labelPlacement='outside-top'
+          variant='faded'
           value={queryInput}
-          onChange={(e)=>setQueryInput(e.target.value)}
-          />
-        <button type="submit">ok</button>
-      </form>
+          onChange={e=>setQueryInput(e.target.value)}
+        />
+        <Button type='submit' className=''>Search</Button>
+      </Form>
 
 
 
 
-    </div>
+    </Card>
   )
 
 }

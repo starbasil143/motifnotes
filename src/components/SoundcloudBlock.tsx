@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 
 
 export default function SoundcloudBlock({
-  trackId
+  trackId,
+  widgetReady
 }: {
-  trackId: string
+  trackId: string,
+  widgetReady: boolean
 }) {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [widgetReady, setWidgetReady] = useState(false);
 
   const [widget, setWidget] = useState<any>(null);
 
@@ -28,10 +29,6 @@ export default function SoundcloudBlock({
     
   return (
     <>
-      <Script 
-        src = 'https://w.soundcloud.com/player/api.js' 
-        onLoad = {()=>setWidgetReady(true)}
-      />
 
       <div className="flex">
         <iframe 

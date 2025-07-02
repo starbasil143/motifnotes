@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin '../lib/hero.ts';
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
 
 :root {
   --background: #ffffff;
@@ -8,28 +11,22 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-darkish: var(--darkish);
-  --color-medium: var(--medium);
+  --color-carddark: var(--darkish);
+  --color-cardmed: var(--cardmed);
+  --color-cardbright: var(--cardbright);
   --color-contrast: var(--contrast);
   --color-brighter: var(--brighter);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-/*
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-*/
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #11151C;
-    --foreground: #dcdced;
+    --background: #0c0c14;
+    --foreground: #d2dbfb;
 
-    --darkish: #212D40;
-    --medium: #364156;
+    --carddark: #303e68;
+    --cardmed: #7482b3;
+    --cardbright: #86a4d8;
     
     --contrast: #7D4E57;
     --brighter: #D66853;
