@@ -26,7 +26,7 @@ export default function Header() {
         <DropdownMenu aria-label="Static Actions">
           <DropdownItem key="account" href='/account'>Account</DropdownItem>
           <DropdownItem key="notes">Your Notes</DropdownItem>
-          <DropdownItem key="new" color='primary' className='text-primary'>New Note</DropdownItem>
+          <DropdownItem key="new" color='primary' className='text-primary' href='/notes/create'>New Note</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </header>
