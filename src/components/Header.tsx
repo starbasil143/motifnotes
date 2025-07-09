@@ -7,14 +7,14 @@ import Link from "next/link";
 export default function Header() {
 
   const sound = new Howl({
-    src: ['splat.mp3']
+    src: ['http://localhost:3000/splat.mp3']
   })
 
   return (
-    <header className='w-full h-14 top-0 sticky backdrop-blur-md bg-white/[.90] dark:bg-black/[.45] items-center flex justify-around gap-4'>
+    <header className='w-full h-14 top-0 z-40 sticky backdrop-blur-md bg-white/[.90] dark:bg-black/[.45] items-center flex justify-around gap-4'>
       
       <Button onPress={()=>sound.play()} isIconOnly color='primary' variant='light' className='p-0.5'>
-        <Image alt='Squishable Fellow' src='lancer.webp' className='pointer-events-none'/>
+        <Image alt='Squishable Fellow' src='http://localhost:3000/lancer.webp' className='pointer-events-none'/>
       </Button>
       <h1 className='font-bold text-2xl'>
         <Link href='/'>MotifNotes?? or something idk</Link>
