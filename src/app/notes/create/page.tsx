@@ -7,13 +7,11 @@ import SoundcloudSearch from "@/components/SoundcloudSearch";
 import { createNote } from '@/lib/actions';
 import { Button, Card, CardBody, Form, Input } from "@heroui/react";
 import { redirect } from 'next/navigation';
-import Script from "next/script";
 import { FormEvent, useState } from "react";
 import { SoundcloudPlaylist } from "soundcloud.ts";
 
 export default function CreateNote() {
 
-  const [searchResults, setSearchResults] = useState<SoundcloudPlaylist[]|null>(null);
   const [currentPlaylist, setCurrentPlaylist] = useState<SoundcloudPlaylist|null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
 

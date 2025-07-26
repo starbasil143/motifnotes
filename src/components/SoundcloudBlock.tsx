@@ -31,11 +31,13 @@ export default function SoundcloudBlock({
     <>
 
       <div className="flex">
-        <iframe 
-          ref = { iframeRef }
-          src = {getSrc(trackId)}
-          width = {400}
-        />
+        <div className=' m-2 rounded-lg'>
+          <iframe 
+            ref = { iframeRef }
+            src = {getSrc(trackId)}
+            width = {400}
+          />
+        </div>
         <button className="border-darkish border-2 rounded-2xl bg-medium m-3 hover:bg-darkish active:bg-contrast"
           onClick={()=>widget.getPosition((pos:string)=>console.log(pos))}
         >
