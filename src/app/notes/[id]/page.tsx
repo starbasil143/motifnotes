@@ -69,7 +69,16 @@ export default function NotePage() {
         <Card className='p-2 min-w-lg'>
           <h2 className='font-bold text-xl text-center'>Motif</h2>
           <Divider/>
-          {currentTrack?currentTrack.title:'idk'}
+          {currentTrack?(
+            <div>
+              <h3 className='text-center underline m-2'>{currentTrack.title}</h3>
+              <SoundcloudBlock trackId={currentTrack.id.toString()} widgetReady={widgetReady}/>
+            </div>
+          ):(
+            <div>
+              <p>Select a track</p>
+            </div>
+          )}
         </Card>
       </div>
     </div>
