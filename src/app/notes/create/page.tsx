@@ -4,25 +4,43 @@ import SoundcloudBlock from "@/components/SoundcloudBlock";
 import SoundcloudPlaylistChoice from "@/components/SoundcloudPlaylistChoice";
 import SoundcloudPlaylistSearch from "@/components/SoundcloudPlaylistSearch";
 import SoundcloudSearch from "@/components/SoundcloudSearch";
-import { createNote } from '@/lib/actions';
+import { createNote, getUser } from '@/lib/actions';
+import { UserSchema } from '@/lib/schemas';
 import { Button, Card, CardBody, Form, Input } from "@heroui/react";
+import { ObjectId } from 'mongodb';
 import { redirect } from 'next/navigation';
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { useFormState } from 'react-dom';
 import { SoundcloudPlaylist } from "soundcloud.ts";
 
 export default function CreateNote() {
+  
+  //temp
 
   const [currentPlaylist, setCurrentPlaylist] = useState<SoundcloudPlaylist|null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   const [noteTitle, setNoteTitle] = useState<string>('');
 
+  useEffect(()=>{
+    async function initialize() {
+      const currentUserObject = await getUser();
+      setCurrentUser(currentUserObject);
+    }
+
+    initialize();
+  }, [])
+
   const handleSubmit = async () => {
-    if (currentPlaylist) {
+    if (currentPlaylist && currentUser) {
       setSubmitting(true);
       const newNote = {
         title: noteTitle || currentPlaylist.title,
-        playlistId: currentPlaylist.id.toString()
+        playlistId: currentPlaylist.id.toString(),
+        owner: currentUser._id,
+        motifs: []
+        
       }
       createNote(newNote).then((noteId: string)=>redirect(`./${noteId}`));
     }

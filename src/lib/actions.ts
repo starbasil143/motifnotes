@@ -1,7 +1,7 @@
 "use server"
 
-import { connect, InferSchemaType, model, Schema } from 'mongoose';
-import { Note, NoteSchema } from './schemas';
+import { connect, InferSchemaType, model, ObjectId, Schema } from 'mongoose';
+import { Note, NoteSchema, User, UserSchema, Quote, QuoteSchema, Motif, MotifSchema } from './schemas';
 
 
 
@@ -15,7 +15,16 @@ export async function searchForTrack(query : string | null) {
 }
 
 
+export async function createUser(username : string){
+  await connect(process.env.MONGODB_URI as string);
+  const user = await User.create({username: username})
+}
 
+export async function getUser() { // placeholder idk
+  await connect (process.env.MONGODB_URI as string);
+  const user = await User.findOne();
+  return JSON.parse(JSON.stringify(user));
+}
 
 export async function createNote(newNote : NoteSchema) {
   await connect(process.env.MONGODB_URI as string);
@@ -34,6 +43,12 @@ export async function getNote(id : string) {
   const note = await Note.findById(id);
 
   return JSON.parse(JSON.stringify(note));
+}
+
+export async function getUserNotes(userId : string) {
+  await connect(process.env.MONGODB_URI as string);
+  const notes = await Note.find({owner: userId})
+  return JSON.parse(JSON.stringify(notes));
 }
 
 export async function getSoundcloudPlaylist(id : string) {
