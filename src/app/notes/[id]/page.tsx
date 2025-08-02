@@ -48,7 +48,7 @@ export default function NotePage() {
 
       <h1 className=' text-center text-2xl mt-3'>{note?note.title:'note'}</h1>
       <div className='flex flex-row p-10 justify-center'>
-        <Card className='p-2 min-w-lg max-h-[70vh]'>  
+        <Card className='p-2 min-w-lg max-h-[70vh] flex-1/2'>  
           <div>
             <h2 className='font-bold text-xl text-center'>Soundtrack</h2>
             <Divider/>
@@ -66,8 +66,8 @@ export default function NotePage() {
           
         </Card>
         <Divider orientation="vertical" className='m-1'/>
-        <Card className='p-2 min-w-lg'>
-          <h2 className='font-bold text-xl text-center'>Motif</h2>
+        <Card className='p-2 min-w-lg flex-1/2'>
+          <h2 className='font-bold text-xl text-center'>Motifs</h2>
           <Divider/>
           {currentTrack?(
             <div>
@@ -79,6 +79,7 @@ export default function NotePage() {
               <p>Select a track</p>
             </div>
           )}
+
         </Card>
       </div>
     </div>

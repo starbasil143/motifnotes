@@ -23,21 +23,6 @@ export default function Home() {
       <div className="p-2 flex flex-col">
 
 
-        <SoundcloudSearch onSelectPlaylist={setCurrentPlaylist}/>
-        <p>{currentPlaylist?.title}</p>
-        {currentPlaylist?(
-            <ul>
-              {currentPlaylist.tracks.map((track, index) => (
-                <li key={index}> 
-                  <SoundcloudBlock trackId={track.id.toString()} widgetReady={widgetReady}/>
-                </li>
-              )
-
-              )}
-            </ul>
-          ):(
-            <p>Search a playlist name</p>
-          )}
       </div>
     </div>
   );
