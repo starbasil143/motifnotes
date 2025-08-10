@@ -27,8 +27,6 @@ export default async function UserNotesPage() {
       <div className='flex flex-row p-10 justify-center'>
         <Card className='p-2 min-w-lg max-h-[70vh]'>  
           {notes?(
-
-
             <ul className='overflow-y-scroll'>
             {notes.map((note, index) => (
               <li key={index}> 
@@ -37,7 +35,6 @@ export default async function UserNotesPage() {
                 </div>
               </li>
             )
-            
           )}
           </ul>
           

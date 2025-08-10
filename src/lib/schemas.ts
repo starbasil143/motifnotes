@@ -20,6 +20,11 @@ const noteSchema = new Schema ({
     ref: "Motif",
   }],
 
+  private: {
+    type: Boolean,
+    default: false
+  }
+
 
 
 })

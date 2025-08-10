@@ -41,7 +41,8 @@ export default function CreateNote() {
         title: noteTitle || currentPlaylist.title,
         playlistId: currentPlaylist.id.toString(),
         owner: currentUser.id as string,
-        motifs: []
+        motifs: [],
+        private: false
         
       }
       createNote(newNote).then((noteId: string)=>redirect(`./${noteId}`));

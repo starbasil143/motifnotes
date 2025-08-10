@@ -48,6 +48,11 @@ export async function getUserNotes(userId : string) {
   const notes = await Note.find({owner: userId})
   return JSON.parse(JSON.stringify(notes)) as NoteDocument[];
 }
+export async function getPublicNotes() {
+  await connect(process.env.MONGODB_URI as string);
+  const notes = await Note.find({private: false})
+  return JSON.parse(JSON.stringify(notes)) as NoteDocument[];
+}
 
 export async function getSoundcloudPlaylist(id : string) {
   fetch(`/api/soundcloud/getPlaylist?q=${encodeURIComponent(id)}`)

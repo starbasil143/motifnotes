@@ -29,7 +29,7 @@ export default function Header() {
 
           {session?.user?(
             <DropdownMenu aria-label='Static Actions'>
-              <DropdownItem key="notes">Your Notes</DropdownItem>
+              <DropdownItem key="notes" href='/notes/user'>Your Notes</DropdownItem>
               <DropdownItem key="new" href='/notes/create'>New Note</DropdownItem>
               <DropdownItem key="account" href='/account' color='primary' className='text-primary'>Account</DropdownItem>
             </DropdownMenu>
