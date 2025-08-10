@@ -5,9 +5,11 @@ import SoundcloudPlaylistChoice from "@/components/SoundcloudPlaylistChoice";
 import SoundcloudPlaylistSearch from "@/components/SoundcloudPlaylistSearch";
 import SoundcloudSearch from "@/components/SoundcloudSearch";
 import { createNote, getUser } from '@/lib/actions';
-import { UserSchema } from '@/lib/schemas';
+// import { UserSchema } from '@/lib/schemas';
 import { Button, Card, CardBody, Form, Input } from "@heroui/react";
 import { ObjectId } from 'mongodb';
+import { User } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { FormEvent, useEffect, useState } from "react";
 import { useFormState } from 'react-dom';
@@ -19,7 +21,7 @@ export default function CreateNote() {
 
   const [currentPlaylist, setCurrentPlaylist] = useState<SoundcloudPlaylist|null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const [noteTitle, setNoteTitle] = useState<string>('');
 
@@ -38,7 +40,7 @@ export default function CreateNote() {
       const newNote = {
         title: noteTitle || currentPlaylist.title,
         playlistId: currentPlaylist.id.toString(),
-        owner: currentUser._id,
+        owner: currentUser.id as string,
         motifs: []
         
       }

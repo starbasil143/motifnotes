@@ -3,9 +3,12 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Image } 
 import { Menu } from 'lucide-react';
 import { Howl, Howler } from "howler";
 import Link from "next/link";
+import { useSession } from 'next-auth/react';
+import { signIn } from '@/auth';
 
 export default function Header() {
 
+  const { data: session } = useSession();
   const sound = new Howl({
     src: ['http://localhost:3000/splat.mp3']
   })
@@ -23,11 +26,18 @@ export default function Header() {
         <DropdownTrigger>
           <Button variant='faded' className='max-w-2'><Menu /></Button>
         </DropdownTrigger>
-        <DropdownMenu aria-label="Static Actions">
-          <DropdownItem key="account" href='/account'>Account</DropdownItem>
-          <DropdownItem key="notes">Your Notes</DropdownItem>
-          <DropdownItem key="new" color='primary' className='text-primary' href='/notes/create'>New Note</DropdownItem>
-        </DropdownMenu>
+
+          {session?.user?(
+            <DropdownMenu aria-label='Static Actions'>
+              <DropdownItem key="notes">Your Notes</DropdownItem>
+              <DropdownItem key="new" href='/notes/create'>New Note</DropdownItem>
+              <DropdownItem key="account" href='/account' color='primary' className='text-primary'>Account</DropdownItem>
+            </DropdownMenu>
+          ):(
+            <DropdownMenu aria-label='Static Actions'>
+              <DropdownItem key="signin" href='/signin'>Sign In</DropdownItem>
+            </DropdownMenu>
+          )}
       </Dropdown>
     </header>
   )

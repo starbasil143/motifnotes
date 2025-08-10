@@ -1,16 +1,14 @@
-
 import SignIn from '@/components/signin';
 import { Button } from "@heroui/react";
 import { Howl, Howler } from 'howler';
 import { auth } from "@/auth"
-import SignOut from '@/components/signout';
 import { redirect } from 'next/navigation';
 
-export default async function AccountPage() {
+export default async function SignInPage() {
 
   const session = await auth();
-  if (!session) {
-    redirect(`/`)
+  if (session) {
+    redirect(`/account`)
   }
 
   const sound = new Howl({
@@ -19,14 +17,11 @@ export default async function AccountPage() {
 
   return (
     <div className='min-h-100 min-w-full flex justify-center align-middle items-center'>
+      
       {session?(
-        <div>
-          <h2>you are {session.user?.name?.split(' ')[0]}</h2>
-          <h2>the {session.user?.id}</h2>
-          <SignOut></SignOut>
-        </div>
+        <p>How did you get here</p>
       ):(
-        <p>how are you here</p>
+        <SignIn></SignIn>
       )}
     </div>
   )

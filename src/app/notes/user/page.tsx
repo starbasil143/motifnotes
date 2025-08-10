@@ -1,45 +1,29 @@
-'use client'
-
 import SoundcloudBlock from '@/components/SoundcloudBlock';
 import { getNote, getSoundcloudPlaylist, getUserNotes } from '@/lib/actions';
 import { NoteSchema } from '@/lib/schemas';
 import { Card, Divider, Link } from '@heroui/react';
-import { useParams } from 'next/navigation';
+import { redirect, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
 import { SoundcloudPlaylist, SoundcloudTrack } from 'soundcloud.ts'
 import Script from 'next/script';
 import SoundcloudSongListItem from '@/components/SoundcloudSongListItem';
 import { ObjectId } from 'mongoose';
+import { auth } from '@/auth';
 
-export default function UserNotesPage() {
-
-
-  const currentUser = {username: 'basil', _id: '688e43f3a79a1b050ab89a17'}; //placeholder user before i actually implement accounts
-
-  const params = useParams<{ id: string }>();
-  const [notes, setNotes] = useState<NoteSchema[] | null>(null);
-  const [playlist, setPlaylist] = useState<SoundcloudPlaylist|null>(null);
-
-  const [currentTrack, setCurrentTrack] = useState<SoundcloudTrack|null>(null);
+export default async function UserNotesPage() {
   
-  const [widgetReady, setWidgetReady] = useState(false);
+  const session = await auth();
+  if (!session || !session.user || !session.user.id) {
+    redirect('/signin')
+  }
+  const currentUser = session.user;
 
-  useEffect(()=>{
-    
-
-    async function initializeNoteList(user: typeof currentUser) {
-      console.log(`Loading ${user.username}'s notes`);
-      const returnedNotes = await getUserNotes(user._id);
-      setNotes((notes)=>returnedNotes);
-    }
-
-    initializeNoteList(currentUser);
-
-  },[])
+  const notes = await getUserNotes(session.user.id);
+  
   
   return (
     <div className='flex flex-col'>
-      <h1 className=' text-center text-2xl mt-3'>{`${currentUser.username}'s notes`}</h1>
+      <h1 className=' text-center text-2xl mt-3'>{`${currentUser.email}'s notes`}</h1>
       <div className='flex flex-row p-10 justify-center'>
         <Card className='p-2 min-w-lg max-h-[70vh]'>  
           {notes?(

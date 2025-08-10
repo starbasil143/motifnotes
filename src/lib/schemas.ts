@@ -1,4 +1,5 @@
-import {Schema, model, InferSchemaType, models, SchemaTypes} from 'mongoose';
+import {Schema, model, InferSchemaType, models, SchemaTypes, HydratedDocument, HydratedDocumentFromSchema} from 'mongoose';
+
 
 const noteSchema = new Schema ({
   title: {
@@ -10,8 +11,7 @@ const noteSchema = new Schema ({
     required: true
   },
   owner: {
-    type: SchemaTypes.ObjectId,
-    ref: "User",
+    type: String,
     required: true
   },
 
@@ -25,6 +25,8 @@ const noteSchema = new Schema ({
 })
 export const Note = models.Note || model('Note', noteSchema)
 export type NoteSchema = InferSchemaType<typeof noteSchema>;
+
+export type NoteDocument = HydratedDocumentFromSchema<typeof noteSchema>;
 
 
 const motifSchema = new Schema ({
@@ -68,15 +70,17 @@ export const Quote = models.Quote || model('Quote', quoteSchema)
 export type QuoteSchema = InferSchemaType<typeof quoteSchema>;
 
 
-const userSchema = new Schema ({
-  username: {
-    type: String,
-    required: true
-  },
-  notes: [{
-    type: SchemaTypes.ObjectId,
-    ref: "Note"
-  }]
-})
-export const User = models.User || model('User', userSchema)
-export type UserSchema = InferSchemaType<typeof userSchema>;
+// const userSchema = new Schema ({
+//   username: {
+//     type: String,
+//     required: true
+//   },
+//   notes: [{
+//     type: SchemaTypes.ObjectId,
+//     ref: "Note"
+//   }]
+// })
+// export const User = models.User || model('User', userSchema)
+// export type UserSchema = InferSchemaType<typeof userSchema>;
+
+
