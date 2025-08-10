@@ -1,13 +1,7 @@
-import SoundcloudBlock from '@/components/SoundcloudBlock';
+
 import { getNote, getSoundcloudPlaylist, getUserNotes } from '@/lib/actions';
-import { NoteSchema } from '@/lib/schemas';
 import { Card, Divider, Link } from '@heroui/react';
 import { redirect, useParams } from 'next/navigation';
-import { useEffect, useState } from 'react'
-import { SoundcloudPlaylist, SoundcloudTrack } from 'soundcloud.ts'
-import Script from 'next/script';
-import SoundcloudSongListItem from '@/components/SoundcloudSongListItem';
-import { ObjectId } from 'mongoose';
 import { auth } from '@/auth';
 
 export default async function UserNotesPage() {
